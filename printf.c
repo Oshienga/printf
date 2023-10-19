@@ -15,14 +15,17 @@ int _printf(const char *format, ...)
 	int count = 0;
 
 	va_start(args, format);
-
 	while (*format)
 	{
 		if (*format == '%' && format[1])
 		{
 			format++;
 			if (*format == 'c')
-				count += write(1, &va_arg(args, int), 1);
+			{
+				char c = (char)va_arg(args, int);
+
+				count += write(1, &c, 1);
+			}
 			else if (*format == 's')
 			{
 				char *str = va_arg(args, char *);
